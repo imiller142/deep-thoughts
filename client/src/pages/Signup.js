@@ -45,11 +45,20 @@ const Signup = () => {
               />
               <input
                 className='form-input'
-                placeholder='******'
+                placeholder='Password'
                 name='password'
                 type='password'
                 id='password'
                 value={formState.password}
+                onChange={handleChange}
+              />
+              <input
+                className='form-input'
+                placeholder='Confirm Password'
+                name='passwordCorfirm'
+                type='password'
+                id='passwordConfirm'
+                value={formState.passwordConfirm}
                 onChange={handleChange}
               />
               <button className='btn d-block w-100' type='submit'>
