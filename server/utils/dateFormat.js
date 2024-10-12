@@ -55,7 +55,7 @@ module.exports = (
   if (hour === 0) {
     hour = 12;
   }
-  hour -= 5;
+  hour -= 4;
   const minutes = dateObj.getMinutes().toString().padStart(2, '0');
 
 
