@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "graphql": "^16.9.0",
+    "jsonwebtoken": "^9.0.2",
     "mern-server": "file:",
     "mongoose": "^5.9.9"
   },

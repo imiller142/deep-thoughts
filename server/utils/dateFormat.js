@@ -55,8 +55,9 @@ module.exports = (
   if (hour === 0) {
     hour = 12;
   }
+  hour -= 5;
+  const minutes = dateObj.getMinutes().toString().padStart(2, '0');
 
-  const minutes = dateObj.getMinutes();
 
   // set `am` or `pm`
   const periodOfDay = dateObj.getHours() >= 12 ? 'pm' : 'am';
