@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const Login = (props) => {
   const initialFormState = { email: '', password: '' }
@@ -27,6 +28,7 @@ const handleFormSubmit = async event => {
     });
     setLoginState("Succesfully Logged in!")
     setFormState(initialFormState);
+    Auth.login(data.login.token);
 
     console.log(data);
   } catch (e) {

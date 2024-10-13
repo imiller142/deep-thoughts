@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ADD_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
+import Auth from "../utils/auth"
 
 
 const Signup = () => {
@@ -53,6 +54,7 @@ const handleFormSubmit = async event => {
     console.log(data);
     setFormState(initialFormState);
     setSubmissionSuccess('Successfully Submitted Form')
+    Auth.login(data.addUser.token);
     
   } catch (e) {
     console.error(e);
