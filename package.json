@@ -19,7 +19,8 @@
     "graphql": "^16.9.0",
     "jsonwebtoken": "^9.0.2",
     "mern-server": "file:",
-    "mongoose": "^5.9.9"
+    "mongoose": "^5.9.9",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",

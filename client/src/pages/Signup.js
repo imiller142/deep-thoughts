@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
+import { ADD_USER } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+
 
 const Signup = () => {
-  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
+  const initialFormState = {
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirm: '' 
+  };
+  const [formState, setFormState] = useState(initialFormState);
+  const [addUser, { error }] = useMutation(ADD_USER);
+  const [passwordError, setPasswordError] = useState('');
+  const [submissionSuccess, setSubmissionSuccess] = useState('')
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -11,12 +23,41 @@ const Signup = () => {
       ...formState,
       [name]: value,
     });
+
+    if (name === 'password' || name === 'passwordConfirm') {
+      setPasswordError('');
+    }
   };
 
   // submit form
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-  };
+// submit form (notice the async!)
+const handleFormSubmit = async event => {
+  event.preventDefault();
+  
+    // Check if passwords match
+    if (formState.password !== formState.passwordConfirm) {
+      console.error("Passwords do not match.");
+      setPasswordError('Passwords do not match');
+      return;
+ // Exit the function if they don't match
+    }
+
+
+  // use try/catch instead of promises to handle errors
+  try {
+
+    // Execute addUser mutation and pass in variable data from form
+    const { data } = await addUser({
+      variables: { ...formState }
+    });
+    console.log(data);
+    setFormState(initialFormState);
+    setSubmissionSuccess('Successfully Submitted Form')
+    
+  } catch (e) {
+    console.error(e);
+  }
+};
 
   return (
     <main className='flex-row justify-center mb-4'>
@@ -52,10 +93,10 @@ const Signup = () => {
                 value={formState.password}
                 onChange={handleChange}
               />
-              <input
+                <input
                 className='form-input'
                 placeholder='Confirm Password'
-                name='passwordCorfirm'
+                name='passwordConfirm'
                 type='password'
                 id='passwordConfirm'
                 value={formState.passwordConfirm}
@@ -65,6 +106,9 @@ const Signup = () => {
                 Submit
               </button>
             </form>
+            {passwordError && <div>{passwordError}</div>}
+            {error && <div>Sign up failed</div>}
+            {submissionSuccess && <div>{submissionSuccess}</div>}
           </div>
         </div>
       </div>
